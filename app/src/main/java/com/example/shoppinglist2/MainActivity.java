@@ -3,6 +3,7 @@ package com.example.shoppinglist2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -11,21 +12,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button sButton = null;
     private Context context = null;
-    private List shoppinglist = new ArrayList();
+    private ArrayList<String> shoppinglist = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        sButton = findViewById(R.id.button);
-//        sButton.setOnClickListener(this);
         // Save
         findViewById(R.id.button).setOnClickListener(this);
         // Done
@@ -44,22 +43,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             context = getApplicationContext();
         }
 
-        if (id == R.id.button) {
+        if (id == R.id.button) { // Save
             if (textlength < 3 || textlength > 15) {
                 Toast toast = Toast.makeText(context, "Text length should be between 3 and 15 characters.", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
             }
             else {
-                shoppinglist.add(eEditText.getText());
-                Toast toast = Toast.makeText(context, eEditText.getText() + " added to shoppinglist.", Toast.LENGTH_SHORT);
+                shoppinglist.add(eEditText.getText().toString());
+                Toast toast = Toast.makeText(context, eEditText.getText() + " added to shoppinglist. "+ shoppinglist.size(), Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
             }
 
         }
-        if (id == R.id.button2) {
-
+        if (id == R.id.button2) { // Done
+            Intent intent = new Intent(this, ShowList.class);
+            intent.putStringArrayListExtra("key", shoppinglist);
+            startActivity(intent);
         }
     }
 
