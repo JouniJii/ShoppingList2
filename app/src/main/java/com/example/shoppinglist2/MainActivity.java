@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button sButton = null;
     private Context context = null;
     private ArrayList<String> shoppinglist = new ArrayList<>();
 
